@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import ToDo from "../components/ToDo";
 import { addToDo, deleteToDo } from "../redux/store";
 
 function HomePage() {
@@ -34,10 +34,7 @@ function HomePage() {
             </form>
             <ul>
                 {currentState.map((state) => (
-                    <li key={state.id} id={state.id}>
-                        <Link to={`${state.id}`}>{state.text}</Link>
-                        <button onClick={btnOnClick}>X</button>
-                    </li>
+                    <ToDo todo={state} key={state.id} />
                 ))}
             </ul>
         </>
