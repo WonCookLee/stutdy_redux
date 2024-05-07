@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import ToDo from "../components/ToDo";
+import { connect, useDispatch, useSelector } from "react-redux";
+import ToDo from "./ToDo";
 import { addToDo, deleteToDo } from "../redux/store";
 
-function HomePage() {
+function HomePage({toDos}) {
     const [text, setText] = useState("");
 
     const onChange = (e) => {
@@ -19,12 +19,7 @@ function HomePage() {
         const id = Date.now();
         dispatch(addToDo({ text, id })); // the way to set multiple data in payload
     };
-    const currentState = useSelector((state) => state);
-    //console.log(currentState);
-    const btnOnClick = (event) => {
-        const targetId = parseInt(event.target.parentNode.id);
-        dispatch(deleteToDo(targetId));
-    };
+
     return (
         <>
             <h1>To Dos</h1>
@@ -33,7 +28,7 @@ function HomePage() {
                 <button onClick={onClick}>Add</button>
             </form>
             <ul>
-                {currentState.map((state) => (
+                {toDos.map((state) => (
                     <ToDo todo={state} key={state.id} />
                 ))}
             </ul>
@@ -41,4 +36,9 @@ function HomePage() {
     );
 }
 
-export default HomePage;
+const mapStateToProps = (state, ownProps) => {
+    return {toDos : state}
+}
+
+
+export default connect (mapStateToProps) (HomePage);

@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./components/Home";
-import { DetailPage } from "./components/Detail";
+import DetailPage from "./components/Detail";
 
 function App() {
   console.log("호출 테스트");
